@@ -932,7 +932,7 @@
 			     <1 2 0xf08>,
 			     <1 3 0xf08>,
 			     <1 0 0xf08>;
-		clock-frequency = <19200000>;
+		clock-frequency = <25200000>;
 	};
 
 	timer@0x17c20000{
@@ -1608,7 +1608,7 @@
 		clocks = <&clock_gcc GCC_GP2_CLK>;
 		clock-names = "core";
 		assigned-clocks = <&clock_gcc GCC_GP2_CLK>;
-		assigned-clock-rates = <80000>;
+		assigned-clock-rates = <85000>;
 		qcom,max_duty = <53>;
 		pinctrl-names = "active", "sleep";
 		pinctrl-0 = <&qcom_clk_led_gp2_active>;
