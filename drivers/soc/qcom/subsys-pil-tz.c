@@ -835,7 +835,7 @@ static int pil_init_image_trusted(struct pil_desc *pil,
 		u32	image_addr;
 	} request;
 	u32 scm_ret = 0;
-	void *mdata_buf;
+	void __iomem *mdata_buf;
 	dma_addr_t mdata_phys;
 	int ret;
 	unsigned long attrs = 0;
@@ -861,7 +861,7 @@ static int pil_init_image_trusted(struct pil_desc *pil,
 		return -ENOMEM;
 	}
 
-	memcpy(mdata_buf, metadata, size);
+	memcpy_toio(mdata_buf, metadata, size);
 	if (!is_scm_armv8()) {
 		request.proc = d->pas_id;
 		request.image_addr = mdata_phys;
