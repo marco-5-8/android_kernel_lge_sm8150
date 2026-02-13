@@ -42,7 +42,7 @@ MODULE_PARM_DESC(msm_rmnet_bam_headroom_check_failure,
 		 "Number of packets with insufficient headroom");
 
 /* Packet threshold. */
-static unsigned int pkt_threshold = 1;
+static unsigned int pkt_threshold = 4;
 module_param(pkt_threshold, uint, 0664);
 
 #define DEBUG_MASK_LVL0	BIT(0)
@@ -58,7 +58,7 @@ module_param(pkt_threshold, uint, 0664);
 #define DBG2(x...) DBG(DEBUG_MASK_LVL2, x)
 
 /* allow larger frames */
-#define RMNET_DATA_LEN 2000
+#define RMNET_DATA_LEN 4096
 
 #define RMNET_BAM_DRIVER_NAME "rmnet_bam"
 
@@ -68,9 +68,9 @@ module_param(pkt_threshold, uint, 0664);
 #define DEVICE_ACTIVE        1
 #define DEVICE_UNINITIALIZED 0
 
-#define HEADROOM_FOR_BAM   8 /* for mux header */
-#define HEADROOM_FOR_QOS    8
-#define TAILROOM            8 /* for padding by mux layer */
+#define HEADROOM_FOR_BAM   16 /* for mux header */
+#define HEADROOM_FOR_QOS    16
+#define TAILROOM            16 /* for padding by mux layer */
 
 struct rmnet_private {
 	struct net_device_stats stats;
@@ -773,7 +773,7 @@ static void rmnet_setup(struct net_device *dev)
 	dev->needed_tailroom = TAILROOM;
 	random_ether_addr(dev->dev_addr);
 
-	dev->watchdog_timeo = 1000; /* 10 seconds? */
+	dev->watchdog_timeo = 3000; /* 10 seconds? */
 }
 
 #ifdef CONFIG_MSM_RMNET_DEBUG
